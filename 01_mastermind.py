@@ -45,3 +45,6 @@
 
 from mastermind_engine import initial_of_number
 from mastermind_engine import check_of_number
+
+initial_of_number()
+check_of_number()
