@@ -42,9 +42,14 @@
 # Движок игры реализует только саму функциональность игры.
 # Это пример применения SOLID принципа (см https://goo.gl/GFMoaI) в архитектуре программ.
 # Точнее, в этом случае важен принцип единственной ответственности - https://goo.gl/rYb3hT
-
-from mastermind_engine import initial_of_number
-from mastermind_engine import check_of_number
+from termcolor import cprint
+from mastermind_engine import initial_of_number, check_of_number, user_input_check, size_of_number
 
 initial_of_number()
-check_of_number()
+
+while True:
+    print("Введите ", size_of_number, "-значное число: ", sep="")
+    if user_input_check(input()) is None:
+        cprint("Введите корректное значение!", color='red')
+    else:
+        break
