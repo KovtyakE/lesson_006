@@ -43,13 +43,38 @@
 # Это пример применения SOLID принципа (см https://goo.gl/GFMoaI) в архитектуре программ.
 # Точнее, в этом случае важен принцип единственной ответственности - https://goo.gl/rYb3hT
 from termcolor import cprint
-from mastermind_engine import initial_of_number, check_of_number, user_input_check, size_of_number
+from mastermind_engine import initial_of_number, check_of_number, user_input_check, size_of_number, initiated_number
+
+
+def user_input():
+    while True:
+        print("Введите ", size_of_number, "-значное число: ", sep="")
+        user_number = user_input_check(input())
+        if user_number is None:
+            cprint("Введите корректное значение!", color='red')
+        else:
+            break
+    return user_number
+
 
 initial_of_number()
+counter = 0
 
 while True:
-    print("Введите ", size_of_number, "-значное число: ", sep="")
-    if user_input_check(input()) is None:
-        cprint("Введите корректное значение!", color='red')
-    else:
-        break
+    counter += 1
+    bulls, cows = check_of_number(user_input(), counter)
+    bulls_cows = {'Быки': bulls}, {'Коровы': cows}
+
+    cprint(bulls_cows[0], color='yellow')
+    cprint(bulls_cows[1], color='yellow')
+
+    if bulls == size_of_number:
+        cprint("Вы победили!", color='green')
+        print("Это заняло", counter, "ходов, желаете сыграть ещё игру? y/n: ")
+        asking = input()
+        if asking == "y":
+            initiated_number.clear()
+            initial_of_number()
+            counter = 0
+        else:
+            break
